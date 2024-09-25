@@ -1,0 +1,56 @@
+.header {
+	// position: absolute;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+
+	.text {
+		display: flex;
+		width: 100%;
+		padding: 20px;
+		justify-content: space-between;
+		align-items: center;
+		box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.06);
+		color: #111517;
+		font-family: 'Nunito Sans';
+		font-size: 1.5rem;
+		font-style: normal;
+		font-weight: 800;
+		line-height: normal;
+
+		h1 {
+			font-size: 24px;
+			font-weight: 800;
+			margin: 0;
+			padding: 0 16px;
+		}
+
+		.dark-mode {
+			display: flex;
+			align-items: center;
+			font-size: 16px;
+			font-weight: 600;
+			margin: 0;
+			padding: 0 16px;
+			background: none;
+			border: none;
+			cursor: pointer;
+			color: inherit;
+
+			&:hover {
+				color: gold;
+			}
+
+			.moon-icon {
+				display: inline-block;
+				transform: scaleX(-1);
+				transition: transform 0.3s ease, color 0.3s ease;
+			}
+
+			.moon-icon:hover {
+				color: gold;
+			}
+		}
+	}
+}

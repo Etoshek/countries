@@ -1,0 +1,39 @@
+.search-box {
+	// position: absolute;
+	display: flex;
+	padding: 0 12px;
+	margin-top: 128px;
+	margin-left: 80px;
+	width: 480px;
+	height: 56px;
+	color: #848484;
+
+	font-family: 'Nunito Sans';
+	font-size: 14px;
+	font-style: normal;
+	font-weight: 400;
+	line-height: 20px;
+	align-items: center;
+
+	border-radius: 5px;
+	background: #fff;
+	box-shadow: 0px 2px 9px 0px rgba(0, 0, 0, 0.05);
+
+	.search-icon {
+		position: relative;
+		width: 1.125rem;
+		height: 1.125rem;
+		flex-shrink: 0;
+		margin-left: 2rem;
+		margin-bottom: 2rem;
+		margin-top: 1.9rem;
+	}
+
+	.search-input {
+		position: relative;
+		flex: 1;
+		border: none;
+		outline: none;
+        
+	}
+}
