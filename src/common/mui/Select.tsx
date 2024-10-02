@@ -1,6 +1,6 @@
-import * as React from 'react';
+import { Fragment, useState } from 'react';
 import { styled, alpha } from '@mui/material/styles';
-import Button from '@mui/material/Button';
+import MuiButton from '@mui/material/Button';
 import Menu, { MenuProps as FilterProps } from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Divider from '@mui/material/Divider';
@@ -49,16 +49,18 @@ const FilterMenu = styled((props: FilterProps) => (
 	},
 }));
 
-const FilterWrapper = styled('div')({});
+type SelectProps = {
+	onClick: any;
+	options: string[] | undefined;
+	value: string | undefined;
+};
 
-const Filter = () => {
-	const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-	const [selectedRegion, setSelectedRegion] = React.useState<string | null>(
-		null
-	);
+export const Select = ({ onClick, value, options }: SelectProps) => {
+	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+
 	const open = Boolean(anchorEl);
 
-	const handleSelected = (event: React.MouseEvent<HTMLElement>) => {
+	const handleClick = (event: React.MouseEvent<HTMLElement>) => {
 		setAnchorEl(event.currentTarget);
 	};
 
@@ -66,22 +68,21 @@ const Filter = () => {
 		setAnchorEl(null);
 	};
 
-	const handleSelectRegion = (region: string) => {
-		setSelectedRegion(region);
-		console.log('Selected Region:', region);
+	const handleSelect = (region: string) => {
+		onClick(region);
 		handleClose();
 	};
 
 	return (
-		<FilterWrapper>
-			<Button
-				id='demo-customized-button'
-				aria-controls={open ? 'demo-customized-menu' : undefined}
+		<>
+			<MuiButton
+				id='select-button'
+				aria-controls={open ? 'select-option' : undefined}
 				aria-haspopup='true'
 				aria-expanded={open ? 'true' : undefined}
 				variant='contained'
 				disableElevation
-				onClick={handleSelected}
+				onClick={handleClick}
 				endIcon={<KeyboardArrowDownIcon />}
 				sx={{
 					borderRadius: '0.3125rem',
@@ -90,47 +91,27 @@ const Filter = () => {
 					color: 'rgb(55, 65, 81)',
 				}}
 			>
-				{selectedRegion ? `Region: ${selectedRegion}` : 'Filter by Region'}
-			</Button>
+				{value ? `Region: ${value}` : 'Filter by Region'}
+			</MuiButton>
 			<FilterMenu
-				id='demo-customized-menu'
+				id='select-option'
 				MenuListProps={{
-					'aria-labelledby': 'demo-customized-button',
+					'aria-labelledby': 'select-button',
 				}}
 				anchorEl={anchorEl}
 				open={open}
 				onClose={handleClose}
 			>
-				<MenuItem onClick={() => handleSelectRegion('Show-All')} disableRipple>
-					show all
-				</MenuItem>
-				<Divider sx={{ my: 0.5 }} />
-				<MenuItem onClick={() => handleSelectRegion('Africa')} disableRipple>
-					Africa
-				</MenuItem>
+				{options?.map((option, index) => (
+					<Fragment key={option}>
+						<MenuItem onClick={() => handleSelect(option)} disableRipple>
+							{option}
+						</MenuItem>
 
-				<Divider sx={{ my: 0.5 }} />
-				<MenuItem onClick={() => handleSelectRegion('America')} disableRipple>
-					America
-				</MenuItem>
-
-				<Divider sx={{ my: 0.5 }} />
-				<MenuItem onClick={() => handleSelectRegion('Asia')} disableRipple>
-					Asia
-				</MenuItem>
-
-				<Divider sx={{ my: 0.5 }} />
-				<MenuItem onClick={() => handleSelectRegion('Europe')} disableRipple>
-					Europe
-				</MenuItem>
-
-				<Divider sx={{ my: 0.5 }} />
-				<MenuItem onClick={() => handleSelectRegion('Oceania')} disableRipple>
-					Oceania
-				</MenuItem>
+						{options.length - 1 > index ? <Divider sx={{ my: 0.5 }} /> : null}
+					</Fragment>
+				))}
 			</FilterMenu>
-		</FilterWrapper>
+		</>
 	);
 };
-
-export default Filter;

@@ -1,5 +1,4 @@
 .search-box {
-	// position: absolute;
 	display: flex;
 	padding: 0 12px;
 	margin-top: 128px;
@@ -20,7 +19,6 @@
 	box-shadow: 0px 2px 9px 0px rgba(0, 0, 0, 0.05);
 
 	.search-icon {
-		position: relative;
 		width: 1.125rem;
 		height: 1.125rem;
 		flex-shrink: 0;
@@ -30,10 +28,8 @@
 	}
 
 	.search-input {
-		position: relative;
 		flex: 1;
 		border: none;
 		outline: none;
-        
 	}
 }

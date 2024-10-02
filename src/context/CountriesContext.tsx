@@ -1,25 +1,20 @@
 import {
 	createContext,
-	Dispatch,
 	ReactNode,
-	SetStateAction,
 	useContext,
 	useEffect,
 	useMemo,
 	useState,
 } from 'react';
 import { CountryObject } from '../types/datatype';
-import { SearchTypes } from '../types/searchType';
 
 export type CountriesContextProps = {
 	countryData: CountryObject[] | undefined;
 	isLoading: boolean;
-	filteredCountries: SearchTypes[] | undefined
+	regions: string[] | undefined;
 };
 
-export type CountriesActionsContextProps = {
-	setFilteredCountries: Dispatch<SetStateAction<SearchTypes[] | undefined>>
-};
+export type CountriesActionsContextProps = {};
 
 export type CountriesContextProviderProps = {
 	state: CountriesContextProps;
@@ -42,14 +37,15 @@ export const CountriesContextProvider: React.FC<{ children: ReactNode }> = ({
 }) => {
 	const [countryData, setCountryData] = useState<CountryObject[]>();
 	const [isLoading, setIsLoading] = useState<boolean>(true);
-	const [filteredCountries, setFilteredCountries] = useState<SearchTypes[]>();
+
+	const [regions, setRegions] = useState<string[]>();
 
 	useEffect(() => {
 		const fetchData = async () => {
 			const response = await fetch('/data.json', { cache: 'no-store' });
-			console.log(response);
-			const results = await response.json();
-			setCountryData(results);
+			const countries: CountryObject[] = await response.json();
+			setCountryData(countries);
+			setRegions([...new Set(countries.map((country) => country.region))]);
 		};
 		setIsLoading(true);
 		fetchData();
@@ -57,11 +53,11 @@ export const CountriesContextProvider: React.FC<{ children: ReactNode }> = ({
 	}, []);
 
 	const state = useMemo(
-		() => ({ countryData, isLoading, filteredCountries }),
-		[countryData, isLoading, filteredCountries]
+		() => ({ countryData, isLoading, regions }),
+		[countryData, isLoading, regions]
 	);
 
-	const actions = useMemo(() => ({setFilteredCountries}), []);
+	const actions = useMemo(() => ({}), []);
 
 	return (
 		<CountriesContext.Provider value={state}>

@@ -1,9 +1,11 @@
-import Filter from './Filter';
+import { SelectedRegion } from './SelectedRegion';
 import { Search } from './Search';
 
-export const Filters = () => (
+type FiltersTypes = {};
+
+export const Filters: React.FC<FiltersTypes> = () => (
 	<div>
 		<Search />
-		<Filter />
+		<SelectedRegion />
 	</div>
 );
