@@ -2,20 +2,15 @@ import React from 'react';
 import '../common/style/search.scss';
 
 import { CountryPage } from './CountryPage';
-import { CountriesInfoContextProvider } from '../context/CountryInfoContext';
+import { CountryInfoContextProvider } from '../context/CountryInfoContext';
+
 
 const CountryInfoPageComponent = () => {
-	return (
-		<>
-			<div className='country-info'>
-				<CountryPage />
-			</div>
-		</>
-	);
+	return<CountryPage />;
 };
 
 export const CountryInfoPage = () => (
-	<CountriesInfoContextProvider>
+	<CountryInfoContextProvider>
 		<CountryInfoPageComponent />
-	</CountriesInfoContextProvider>
+	</CountryInfoContextProvider>
 );

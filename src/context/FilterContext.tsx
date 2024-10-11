@@ -11,13 +11,13 @@ import {
 
 import { SearchTypes } from '../types/searchType';
 import { useCountriesContext } from './CountriesContext';
-import { CountryInfoProps } from './CountryInfoContext';
+import { CountryInfoType } from '../types/countryInfoType';
 
 export type FilterContextProps = {
 	filteredCountries: SearchTypes[] | undefined;
 	selectedRegion: string | undefined;
 	searchFilter: string;
-	countryInfo: CountryInfoProps[] | undefined;
+	countryInfo: CountryInfoType[] | undefined;
 };
 
 export type FilterActionsContextProps = {
@@ -47,7 +47,7 @@ export const FilterContextProvider: React.FC<{ children: ReactNode }> = ({
 	const [selectedRegion, setSelectedRegion] = useState<string>();
 	const [searchFilter, setSearchFilter] = useState<string>('');
 	const [allCountries, setAllCountries] = useState<SearchTypes[]>();
-	const [countryInfo, setCountryInfo] = useState<CountryInfoProps[]>();
+	const [countryInfo, setCountryInfo] = useState<CountryInfoType[]>();
 
 	useEffect(() => {
 		const filtered = allCountries?.filter(

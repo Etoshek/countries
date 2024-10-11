@@ -1,6 +1,5 @@
-import { ReactNode } from 'react';
+import { ReactNode,useContext } from 'react';
 import { ThemeContext } from '../context/ColorsContext';
-import { useContext } from 'react';
 import '../common/style/button.scss';
 
 type LayoutProps = {

@@ -3,6 +3,7 @@ import '../common/style/search.scss';
 import { useCountriesContext } from '../context/CountriesContext';
 import { CountryElement } from './CountryElement';
 import { useFilterContext } from '../context/FilterContext';
+import { Filters } from './Filters';
 
 export const CountryList = () => {
 	const { isLoading } = useCountriesContext();
@@ -11,9 +12,10 @@ export const CountryList = () => {
 	if (isLoading) {
 		return <p>loading</p>;
 	}
-
+    
 	return (
 		<>
+		<Filters/>
 			<div className='countries-list'>
 				{filteredCountries?.map((el) => (
 					<CountryElement

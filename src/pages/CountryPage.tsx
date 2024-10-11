@@ -1,20 +1,15 @@
-import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
-import { CountryInfoType } from '../types/countryInfoType';
-import { CountryInfoContext } from '../context/CountryInfoContext';
+import {
+	CountryInfoContextProvider,
+	useCountryInfoContext,
+} from '../context/CountryInfoContext';
+import '../common/style/borders-button.scss';
 
 export const CountryPage = () => {
-	const { countryInfo } = CountryInfoContext();
+	const { countryInfo, borders } = useCountryInfoContext();
 	return (
 		<>
-			{/* <Helmet> */}
-			{/* <title>Country | {name}</title>
-				<h1>
-					Capital: {capital && capital.charAt(0).toUpperCase() + name.slice(1)}
-				</h1> */}
-			{/* </Helmet> */}
-
-			<section className='img-card'>
+			<section className='img-section'>
 				<img
 					className='country-img'
 					src={countryInfo?.flags.png}
@@ -49,6 +44,19 @@ export const CountryPage = () => {
 					<span>Population: </span>
 					{countryInfo?.population}
 				</p>
+
+				{borders?.length ? (
+					<>
+						<span>Borders: </span>
+						{borders?.map((border) => (
+							<CountryInfoContextProvider>
+								<Link target='_blank' to={`/country/${border}`}>
+									<button className='borders-button'>{border} </button>
+								</Link>
+							</CountryInfoContextProvider>
+						))}
+					</>
+				) : null}
 			</section>
 		</>
 	);

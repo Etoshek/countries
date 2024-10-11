@@ -11,35 +11,38 @@ import { CountryInfoType } from '../types/countryInfoType';
 import { CountryObject } from '../types/datatype';
 import { useParams } from 'react-router-dom';
 
-export type CountryInfoProps = {
+
+export type CountryInfoContextProps = {
 	countryInfo: CountryInfoType | undefined;
 	isLoading: boolean;
+	borders: (string | undefined)[] | undefined;
 };
 
-export type CountriesInfoActionsContextProps = {};
+export type CountryInfoActionsContextProps = {};
 
-export type CountriesInfoContextProviderProps = {
-	state: CountryInfoProps;
-	actions: CountriesInfoActionsContextProps;
+export type CountryInfoContextProviderProps = {
+	state: CountryInfoContextProps;
+	actions: CountryInfoActionsContextProps;
 };
-export const CountriesInfoContext = createContext<CountryInfoProps>(
-	{} as CountryInfoProps
+export const CountryInfoContext = createContext<CountryInfoContextProps>(
+	{} as CountryInfoContextProps
 );
 
-export const CountriesInfoActionsContext =
-	createContext<CountriesInfoActionsContextProps>(
-		{} as CountriesInfoActionsContextProps
+export const CountryInfoActionsContext =
+	createContext<CountryInfoActionsContextProps>(
+		{} as CountryInfoActionsContextProps
 	);
 
-export const CountryInfoContext = () => useContext(CountriesInfoContext);
-export const useCountriesInfoActionsContext = () =>
-	useContext(CountriesInfoActionsContext);
-export const CountriesInfoContextProvider: React.FC<{
+export const useCountryInfoContext = () => useContext(CountryInfoContext);
+export const useCountryInfoActionsContext = () =>
+	useContext(CountryInfoActionsContext);
+export const CountryInfoContextProvider: React.FC<{
 	children: ReactNode;
 }> = ({ children }) => {
 	const { name } = useParams();
 	const [countryInfo, setCountryInfo] = useState<CountryInfoType>();
 	const [isLoading, setIsLoading] = useState<boolean>(true);
+	const [borders, setBorders] = useState<(string | undefined)[]>();
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -48,9 +51,7 @@ export const CountriesInfoContextProvider: React.FC<{
 			});
 
 			const countries: CountryObject[] = await response.json();
-			const foundCountry = countries.find(
-				(country) => country.name === 'Poland'
-			);
+			const foundCountry = countries.find((country) => country.name === name);
 			const countryMapper = (
 				value: CountryObject | undefined
 			): CountryInfoType | undefined => {
@@ -76,18 +77,46 @@ export const CountriesInfoContextProvider: React.FC<{
 		setIsLoading(false);
 	}, [name]);
 
+	useEffect(() => {
+		const borders = async () => {
+			const response = await fetch('/data.json', {
+				cache: 'no-store',
+			});
+
+			const countries: CountryObject[] = await response.json();
+			const foundBorders = countries.find(
+				(country) => country.name === name
+			)?.borders;
+			const bordersMapper = (
+				borders: string[] | undefined
+			): (string | undefined)[] | undefined => {
+				if (borders === undefined) {
+					return undefined;
+				}
+				return borders.map(
+					(border) =>
+						countries.find((country) => country.alpha3Code === border)?.name
+				);
+			};
+			setBorders(bordersMapper(foundBorders));
+		};
+		setIsLoading(true);
+		borders();
+		setIsLoading(false);
+	}, [name]);
+
 	const state = useMemo(
-		() => ({ countryInfo, isLoading }),
-		[countryInfo, isLoading]
+		() => ({ countryInfo, isLoading, borders }),
+		[countryInfo, isLoading, borders]
 	);
 
 	const actions = useMemo(() => ({}), []);
 
 	return (
-		<CountriesInfoContext.Provider value={state}>
-			<CountriesInfoActionsContext.Provider value={actions}>
+		<CountryInfoContext.Provider value={state}>
+			<CountryInfoActionsContext.Provider value={actions}>
 				{children}
-			</CountriesInfoActionsContext.Provider>
-		</CountriesInfoContext.Provider>
+			</CountryInfoActionsContext.Provider>
+		</CountryInfoContext.Provider>
 	);
 };
