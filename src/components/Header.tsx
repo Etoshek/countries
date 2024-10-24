@@ -1,4 +1,4 @@
-import {  useContext } from 'react';
+import { useContext } from 'react';
 import { ThemeContext } from '../context/ColorsContext';
 import '../common/style/header.scss';
 
@@ -9,7 +9,7 @@ export const Header = () => {
 		<div className='header'>
 			<h1 className='text'>Where in the world?</h1>
 			<button onClick={toggleTheme} className='dark-mode'>
-			{isDarkMode ? (
+				{isDarkMode ? (
 					<>
 						<span className='material-icons moon-icon'>wb_sunny</span>
 						<p> Light mode</p>

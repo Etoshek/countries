@@ -1,6 +1,6 @@
 import { SelectedRegion } from './SelectedRegion';
 import { Search } from './Search';
-import '../common/style/filters.scss'
+import '../common/style/filters.scss';
 
 type FiltersTypes = {};
 

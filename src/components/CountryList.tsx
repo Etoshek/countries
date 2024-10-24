@@ -1,4 +1,3 @@
-import React from 'react';
 import '../common/style/search.scss';
 import { useCountriesContext } from '../context/CountriesContext';
 import { CountryElement } from './CountryElement';
