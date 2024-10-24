@@ -16,10 +16,19 @@ export const SelectedRegion: React.FC<SelectedRegionProps> = () => {
 	const { regions } = useCountriesContext();
 
 	return (
-		<Select
-			onClick={setSelectedRegion}
-			options={regions}
-			value={selectedRegion}
-		/>
+		<div className='selected'>
+			<Select
+				onClick={setSelectedRegion}
+				options={
+					regions
+						? [
+								{ label: `No region`, value: undefined },
+								...regions.map((region) => ({ label: region, value: region })),
+						  ]
+						: []
+				}
+				value={selectedRegion}
+			/>
+		</div>
 	);
 };

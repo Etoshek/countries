@@ -51,7 +51,12 @@ const FilterMenu = styled((props: FilterProps) => (
 
 type SelectProps = {
 	onClick: any;
-	options: string[] | undefined;
+	options: Option[] | undefined;
+	value: string | undefined;
+};
+
+type Option = {
+	label: string;
 	value: string | undefined;
 };
 
@@ -68,7 +73,7 @@ export const Select = ({ onClick, value, options }: SelectProps) => {
 		setAnchorEl(null);
 	};
 
-	const handleSelect = (region: string) => {
+	const handleSelect = (region: string | undefined) => {
 		onClick(region);
 		handleClose();
 	};
@@ -103,9 +108,9 @@ export const Select = ({ onClick, value, options }: SelectProps) => {
 				onClose={handleClose}
 			>
 				{options?.map((option, index) => (
-					<Fragment key={option}>
-						<MenuItem onClick={() => handleSelect(option)} disableRipple>
-							{option}
+					<Fragment key={option.label}>
+						<MenuItem onClick={() => handleSelect(option.value)} disableRipple>
+							{option.label}
 						</MenuItem>
 
 						{options.length - 1 > index ? <Divider sx={{ my: 0.5 }} /> : null}

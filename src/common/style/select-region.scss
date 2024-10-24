@@ -1,7 +1,18 @@
-.filter-region{
-    margin: 0;
-    padding: 0;
-    border: none;
-    background-color: none;
+.selected-region {
+	// display: grid;
+	// grid-template-columns: repeat(12, 1fr);
+	// grid-template-rows: 1fr;
+	// grid-column-gap: 20px;
+	// grid-row-gap: 0px;
 
+	.selected {
+		// grid-area: 1 / 10 / 2 / 12;
+		height: 56px;
+	}
+
+	@media (min-width: 576px) and (max-width: 768px) {
+		margin: 0 auto;
+		padding: 30px 0;
+		width: 60%;
+	}
 }

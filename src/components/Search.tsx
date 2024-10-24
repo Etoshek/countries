@@ -13,15 +13,18 @@ export const Search: React.FC<SearchProps> = () => {
 
 	return (
 		<>
-			<div className='search-box'>
-				<p className='material-icons search-icon'>search</p>
-				<input
-					className='search-input'
-					type='text'
-					placeholder='Search by name or capital...'
-					value={searchFilter}
-					onChange={(e) => setSearchFilter(e.target.value)}
-				/>
+			<div className='search'>
+				<div className='search-box'>
+					<span className='material-icons search-icon'>travel_explore</span>
+
+					<input
+						className='search-input'
+						type='text'
+						placeholder='Search by name or capital...'
+						value={searchFilter}
+						onChange={(e) => setSearchFilter(e.target.value)}
+					/>
+				</div>
 			</div>
 		</>
 	);

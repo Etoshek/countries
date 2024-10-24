@@ -52,13 +52,17 @@ export const FilterContextProvider: React.FC<{ children: ReactNode }> = ({
 	useEffect(() => {
 		const filtered = allCountries?.filter(
 			(country) =>
-				country.name.toLowerCase().includes(searchFilter.toLowerCase()) ||
-				country.capital?.toLowerCase().includes(searchFilter.toLowerCase()) ||
+				(searchFilter &&
+					(country.name.toLowerCase().includes(searchFilter.toLowerCase()) ||
+						country.capital
+							?.toLowerCase()
+							.includes(searchFilter.toLowerCase()))) ||
 				(selectedRegion &&
-					country.region.toLowerCase().includes(selectedRegion.toLowerCase()))
+					country.region.toLowerCase().includes(selectedRegion.toLowerCase())) ||
+			(!searchFilter && !selectedRegion)
 		);
 		setFilteredCountries(filtered);
-	}, [
+	}, [    
 		searchFilter,
 		allCountries,
 		setFilteredCountries,
@@ -76,7 +80,7 @@ export const FilterContextProvider: React.FC<{ children: ReactNode }> = ({
 				population: country.population,
 				region: country.region,
 				subregion: country.subregion,
-				code: country.alpha2Code
+				code: country.alpha2Code,
 			}))
 		);
 	}, [countryData]);

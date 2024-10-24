@@ -12,10 +12,10 @@ export const CountryList = () => {
 	if (isLoading) {
 		return <p>loading</p>;
 	}
-    
+
 	return (
 		<>
-		<Filters/>
+			<Filters />
 			<div className='countries-list'>
 				{filteredCountries?.map((el) => (
 					<CountryElement

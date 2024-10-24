@@ -1,31 +1,17 @@
 .header {
-
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	width: 100%;
+	display: grid;
+	grid-template-columns: repeat(9, 1fr);
+	grid-column-gap: 11px;
+	grid-row-gap: 11px;
+	padding-top: 20px;
 
 	.text {
-		display: flex;
-		width: 100%;
-		padding: 20px;
-		justify-content: space-between;
-		align-items: center;
-		box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.06);
-		color: #111517;
-		font-family: 'Nunito Sans';
-		font-size: 1.5rem;
-		font-style: normal;
+		grid-area: 1 / 2 / 2 / 4;
+		font-size: 24px;
 		font-weight: 800;
-		line-height: normal;
+	}
 
-		h1 {
-			font-size: 24px;
-			font-weight: 800;
-			margin: 0;
-			padding: 0 16px;
-		}
-
-		
+	.dark-mode {
+		grid-area: 1 / 8 / 2 / 9;
 	}
 }

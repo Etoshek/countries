@@ -10,6 +10,7 @@ import { ThemeProvider } from './context/ColorsContext';
 import { Route, Routes } from 'react-router-dom';
 
 import { CountryInfoPage } from './pages/CountryInfoPage';
+import { Header } from './components/Header';
 
 function App() {
 	return (
@@ -17,7 +18,7 @@ function App() {
 			<CountriesContextProvider>
 				<FilterContextProvider>
 					<Layout>
-			
+						<Header />
 						<Routes>
 							<Route path='/'>
 								<Route index element={<CountryList />} />

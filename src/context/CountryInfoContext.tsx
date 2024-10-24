@@ -10,12 +10,12 @@ import {
 import { CountryInfoType } from '../types/countryInfoType';
 import { CountryObject } from '../types/datatype';
 import { useParams } from 'react-router-dom';
-
+import { BordersType } from '../types/bordersType';
 
 export type CountryInfoContextProps = {
 	countryInfo: CountryInfoType | undefined;
 	isLoading: boolean;
-	borders: (string | undefined)[] | undefined;
+	borders: BordersType[] | undefined;
 };
 
 export type CountryInfoActionsContextProps = {};
@@ -42,7 +42,7 @@ export const CountryInfoContextProvider: React.FC<{
 	const { name } = useParams();
 	const [countryInfo, setCountryInfo] = useState<CountryInfoType>();
 	const [isLoading, setIsLoading] = useState<boolean>(true);
-	const [borders, setBorders] = useState<(string | undefined)[]>();
+	const [borders, setBorders] = useState<BordersType[]>();
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -89,14 +89,20 @@ export const CountryInfoContextProvider: React.FC<{
 			)?.borders;
 			const bordersMapper = (
 				borders: string[] | undefined
-			): (string | undefined)[] | undefined => {
+			): BordersType[] | undefined => {
 				if (borders === undefined) {
 					return undefined;
 				}
-				return borders.map(
-					(border) =>
-						countries.find((country) => country.alpha3Code === border)?.name
-				);
+				return borders.map((border) => {
+					const country = countries.find(
+						(country) => country.alpha3Code === border
+					);
+					return {
+						name: country?.name,
+						flag: country?.flag,
+						capital: country?.capital,
+					};
+				});
 			};
 			setBorders(bordersMapper(foundBorders));
 		};

@@ -4,9 +4,8 @@ import '../common/style/search.scss';
 import { CountryPage } from './CountryPage';
 import { CountryInfoContextProvider } from '../context/CountryInfoContext';
 
-
 const CountryInfoPageComponent = () => {
-	return<CountryPage />;
+	return <CountryPage />;
 };
 
 export const CountryInfoPage = () => (
