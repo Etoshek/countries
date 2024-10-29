@@ -1,0 +1,15 @@
+.logout-button {
+	display: flex;
+	align-items: center;
+	font-size: 16px;
+	font-weight: 600;
+	margin: 0;
+	padding: 0 16px;
+	background: none;
+	border: none;
+	cursor: pointer;
+	color: inherit;
+    transition: transform 0.3s ease, color 0.3s ease;
+    &:hover {
+		color: gold;
+	}}

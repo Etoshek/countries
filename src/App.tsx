@@ -10,7 +10,8 @@ import { ThemeProvider } from './context/ColorsContext';
 import { Route, Routes } from 'react-router-dom';
 
 import { CountryInfoPage } from './pages/CountryInfoPage';
-import { Header } from './components/Header';
+
+import { LoginForm } from './components/LoginForm';
 
 function App() {
 	return (
@@ -18,9 +19,11 @@ function App() {
 			<CountriesContextProvider>
 				<FilterContextProvider>
 					<Layout>
-						<Header />
+						<LoginForm />
+						
+
 						<Routes>
-							<Route path='/'>
+							<Route path='/country'>
 								<Route index element={<CountryList />} />
 								<Route path='/country/:name' element={<CountryInfoPage />} />
 							</Route>
