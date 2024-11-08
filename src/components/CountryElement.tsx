@@ -4,6 +4,7 @@ import { CountryObject } from '../types/datatype';
 
 import { useContext } from 'react';
 import { ThemeContext } from '../context/ColorsContext';
+import { Header } from './Header';
 
 type CountryElementProps = Pick<
 	CountryObject,
@@ -19,6 +20,7 @@ export const CountryElement = ({
 	const { theme } = useContext(ThemeContext);
 	const isDarkMode = theme.backgroundColor === '#202C36';
 	return (
+		<>
 		<Link to={`/country/${name}`} className='countries-link'>
 			<div className='country-card'>
 				<div className='single-card'>
@@ -46,5 +48,7 @@ export const CountryElement = ({
 				</div>
 			</div>
 		</Link>
+		
+		</>
 	);
 };

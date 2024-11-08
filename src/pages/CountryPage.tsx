@@ -2,6 +2,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useCountryInfoContext } from '../context/CountryInfoContext';
 import '../common/style/borders-button.scss';
 import '../common/style/country-page.scss';
+import { Header } from '../components/Header';
 
 export const CountryPage = () => {
 	const { countryInfo, borders } = useCountryInfoContext();
@@ -13,6 +14,7 @@ export const CountryPage = () => {
 
 	return (
 		<>
+			<Header />
 			<button onClick={goBack} className='back-button'>
 				<span className='material-icons back-icon'>arrow_back</span>
 				<p className='p-back'>Back</p>

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { userData } from '../userData';
 import { useNavigate } from 'react-router-dom';
 import '../common/style/login-form.scss';
+import { useUser } from '../context/UserContext';
 
 export const LoginForm = () => {
 	const [identifier, setIdentifier] = useState('');
@@ -11,9 +11,11 @@ export const LoginForm = () => {
 	const [error, setError] = useState('');
 	const [isMessageVisible, setIsMessageVisible] = useState(false);
 	const [isLoggedIn, setIsLoggedIn] = useState(false);
-	
+
 	const navigate = useNavigate();
-	
+
+	const { login, user } = useUser();
+
 	const handleLogin = (e: any) => {
 		const userCheck = e.target.value;
 		setIdentifier(userCheck);
@@ -32,17 +34,12 @@ export const LoginForm = () => {
 			username: userName || null,
 			password: password,
 		};
+		return payload;
 	};
 	const handleSubmit = (e: { preventDefault: () => void }) => {
 		e.preventDefault();
 		setError('');
-		
-		const user = userData.find(
-			(user) =>
-				(email === user.email || userName === user.userName) &&
-			password === user.password
-		);
-		
+		login({ email, userName, password });
 		if (user) {
 			setIsMessageVisible(true);
 			setTimeout(() => {

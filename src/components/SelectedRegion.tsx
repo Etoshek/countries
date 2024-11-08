@@ -1,6 +1,8 @@
 import React from 'react';
 import { Select } from '../common/mui/Select';
 
+import '../common/style/filters.scss';
+
 import '../common/style/select-region.scss';
 import {
 	useFilterActionsContext,
@@ -17,8 +19,9 @@ export const SelectedRegion: React.FC<SelectedRegionProps> = () => {
 
 	return (
 		<div className='selected'>
-			<Select
+			<Select 
 				onClick={setSelectedRegion}
+				
 				options={
 					regions
 						? [

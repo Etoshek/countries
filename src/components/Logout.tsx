@@ -1,13 +1,13 @@
 import React from 'react';
-import { useLogout } from '../context/LogoutContext';
-import '../common/style/logout.scss'
+import { useUser } from '../context/UserContext';
+import '../common/style/logout.scss';
 
 export const Logout: React.FC = () => {
-    const { logout } = useLogout();
+	const { logout } = useUser();
 
-    return (
-        <button onClick={logout} className='logout-button'>
-            Wyloguj się
-        </button>
-    );
+	return (
+		<button onClick={logout} className='logout-button'>
+			<p> Wyloguj się</p>
+		</button>
+	);
 };
